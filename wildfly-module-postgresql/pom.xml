@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<!-- MODEL VERSION -->
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Artifact Configuration -->
+	<groupId>com.io7n</groupId>
+	<artifactId>wildfly-module-postgresql</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0-SNAPSHOT</version>
+
+	<name>Wildfly (PostgreSQL) Module</name>
+    <description/>
+    <inceptionYear>2015</inceptionYear>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- Properties                                                -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <properties>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
+
+        <!-- Versions -->
+        <version.org.postgresql>9.4-1201-jdbc41</version.org.postgresql>
+    </properties>
+
+	<!-- - - - - - - - - - - - - - - - - - -->
+	<!-- DEPENDENCIES -->
+	<!-- - - - - - - - - - - - - - - - - - -->
+	<dependencies>
+		<dependency>
+		    <groupId>org.postgresql</groupId>
+		    <artifactId>postgresql</artifactId>
+		    <version>${version.org.postgresql}</version>
+		</dependency>
+	</dependencies>
+
+	<!-- - - - - - - - - - - - - - - - - - -->
+	<!-- BUILD CONFIGURATION -->
+	<!-- - - - - - - - - - - - - - - - - - -->
+	<build>
+
+		<!-- Resources -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
+		<!-- Plugin execution -->
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<finalName>wildfly-postgres-module-${project.version}</finalName>
+					<descriptors>
+						<descriptor>src/assembly/distribution.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+
+	</build>
+
+</project>
